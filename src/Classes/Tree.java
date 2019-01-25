@@ -3,26 +3,26 @@ package Classes;
 import Models.Cove;
 
 public class Tree {
-    Node raiz;
-    int altura;
+    Node root;
+    int height;
     
     public void add(Cove cove) {
-        if (this.raiz == null) {
+        if (this.root == null) {
             cove.setX(720);
             cove.setY(20);
-            this.raiz = new Node(null, cove, null, 1);
+            this.root = new Node(null, cove, null, 1);
         } else {
-            ingresarArbol(this.raiz, cove, 2);
+            addNode(this.root, cove, 2);
         }
-        actualizarFe(this.raiz);
-        this.altura++;
+        updateFe(this.root);
+        this.height++;
     }
     
     private Node rotacionDerecha(Node padre) {
         preOrden(padre);
         Node aux = padre.getLeft();
-        padre.setIzq(aux.getRight());
-        aux.setDer(padre);
+        padre.setLeft(aux.getRight());
+        aux.setRight(padre);
         padre.setFe(padre.getLeft().getFe() - padre.getRight().getFe());
         aux.setFe(aux.getLeft().getFe() - aux.getRight().getFe() + 1);
         return aux;
@@ -30,53 +30,53 @@ public class Tree {
     
     private Node rotacionDobleDerecha(Node padre) {
         Node aux;
-        padre.setDer(rotacionDerecha(padre));
+        padre.setRight(rotacionDerecha(padre));
         aux = rotacionIzquierda(padre);
         return aux;
     }
     
     private Node rotacionDobleIzquierda(Node padre) {
         Node aux;
-        padre.setIzq(rotacionIzquierda(padre.getLeft()));
+        padre.setLeft(rotacionIzquierda(padre.getLeft()));
         aux = rotacionDerecha(padre);
         return aux;
     }
     
     private Node rotacionIzquierda(Node padre) {
         Node aux = padre.getRight();
-        padre.setDer(aux.getLeft());
-        aux.setIzq(padre);
+        padre.setRight(aux.getLeft());
+        aux.setLeft(padre);
         padre.setFe(padre.getLeft().getFe() - padre.getRight().getFe());
         aux.setFe(aux.getLeft().getFe() - aux.getRight().getFe() + 1);
         return aux;
     }
     
-    private void actualizarFe(Node padre) {
-        if (padre.getLeft() == null && padre.getRight() == null) {
-            padre.setFe(0);
-        } else if (padre.getLeft() != null && padre.getRight() == null || padre.getLeft() == null && padre.getRight() != null) {
-            padre.setFe(padre.getFe() + 1);
+    private void updateFe(Node parent) {
+        if (parent.getLeft() == null && parent.getRight() == null) {
+            parent.setFe(0);
+        } else if (parent.getLeft() != null && parent.getRight() == null || parent.getLeft() == null && parent.getRight() != null) {
+            parent.setFe(parent.getFe() + 1);
         } else {
-            padre.setFe(Math.max(padre.getLeft().getFe(), padre.getRight().getFe()) + 1);
+            parent.setFe(Math.max(parent.getLeft().getFe(), parent.getRight().getFe()) + 1);
         }
     }
     
-    private boolean ingresarArbol(Node padre, Cove cove, int nivel) {
-        if (padre == null) return true;
-        if (cove.getAmount() < padre.getCove().getAmount()) {
-            if (ingresarArbol(padre.getLeft(), cove, nivel + 1)) {
-                padre.setIzq(new Node(null, cove, null, nivel));
-                cove.setX(padre.getCove().getX() - 100);
-                cove.setY(padre.getCove().getY() + 70);
+    private boolean addNode(Node parent, Cove cove, int level) {
+        if (parent == null) return true;
+        if (cove.getAmount() < parent.getCove().getAmount()) {
+            if (addNode(parent.getLeft(), cove, level + 1)) {
+                parent.setLeft(new Node(null, cove, null, level));
+                cove.setX(parent.getCove().getX() - 100);
+                cove.setY(parent.getCove().getY() + 70);
                 return false;
             }
         }
         
-        if (cove.getAmount() >= padre.getCove().getAmount()) {
-            if (ingresarArbol(padre.getRight(), cove, nivel + 1)) {
-                padre.setDer(new Node(null, cove, null, nivel));
-                cove.setX(padre.getCove().getX() + 100);
-                cove.setY(padre.getCove().getY() + 70);
+        if (cove.getAmount() >= parent.getCove().getAmount()) {
+            if (addNode(parent.getRight(), cove, level + 1)) {
+                parent.setRight(new Node(null, cove, null, level));
+                cove.setX(parent.getCove().getX() + 100);
+                cove.setY(parent.getCove().getY() + 70);
                 return false;
             }
         }
@@ -106,8 +106,8 @@ public class Tree {
     
     boolean eliminarHoja(Node padre, Cove cove) {
         if (padre == null) return false;
-        if (eliminarHoja(padre.getLeft(), cove)) padre.setIzq(null);
-        if (eliminarHoja(padre.getRight(), cove)) padre.setDer(null);
+        if (eliminarHoja(padre.getLeft(), cove)) padre.setLeft(null);
+        if (eliminarHoja(padre.getRight(), cove)) padre.setRight(null);
         return padre.getRight() == null && padre.getLeft() == null && padre.getCove() == cove;
     }
     
@@ -117,19 +117,19 @@ public class Tree {
     }
     
     public Node getRoot() {
-        return raiz;
+        return root;
     }
     
-    public void setRaiz(Node raiz) {
-        this.raiz = raiz;
+    public void setRoot(Node root) {
+        this.root = root;
     }
     
-    public int getAltura() {
-        return altura;
+    public int getHeight() {
+        return height;
     }
     
-    public void setAltura(int altura) {
-        this.altura = altura;
+    public void setHeight(int height) {
+        this.height = height;
     }
     
 }
