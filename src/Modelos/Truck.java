@@ -2,11 +2,11 @@ package Modelos;
 
 import javax.swing.*;
 
-public class Camion extends Base implements Runnable {
-    private Thread hilo;
+public class Truck extends Base implements Runnable {
+    private Thread thread;
     int image;
     
-    public Camion(int x, int y) {
+    public Truck(int x, int y) {
         super(x, y, 73, 43, "../img/camion/camion1.png");
         this.image = 1;
         new Thread(this).start();

@@ -1,16 +1,15 @@
-import Clases.Arbol;
-import Modelos.Camion;
-import Modelos.Cueva;
-import Vistas.Tablero.FrameTablero;
-import Vistas.Tablero.Tablero;
+import Clases.Tree;
+import Modelos.Truck;
+import Modelos.Cove;
+import Vistas.Board.BoardFrame;
+import Vistas.Board.Board;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.LinkedList;
-import java.util.Random;
 
-public class Proyecto {
-    public static void main(String args[]) {
+public class Project {
+    public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception ignored) {
@@ -18,13 +17,13 @@ public class Proyecto {
         UIManager.put("Label.font", new javax.swing.plaf.FontUIResource("Raleway", Font.PLAIN, 12));
         setUIFont(new javax.swing.plaf.FontUIResource("Raleway", Font.PLAIN, 12));
         UIManager.put("TabbedPane.contentOpaque", false);
-        JFrame inicio = new FrameTablero("El Paro");
-        inicio.setContentPane(new Tablero(cargarArbolInicial(), cargarCamionesIniciales()).panel);
-        inicio.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        inicio.pack();
-        inicio.setLocationRelativeTo(null);
-        inicio.setVisible(true);
-        inicio.setResizable(false);
+        JFrame index = new BoardFrame("El Paro");
+        index.setContentPane(new Board(loadInitialTree(), loadInitialTrucks()).panel);
+        index.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        index.pack();
+        index.setLocationRelativeTo(null);
+        index.setVisible(true);
+        index.setResizable(false);
     }
     
     private static void setUIFont(javax.swing.plaf.FontUIResource f) {
@@ -38,18 +37,18 @@ public class Proyecto {
         }
     }
     
-    private static Arbol cargarArbolInicial() {
-        Arbol arbol = new Arbol();
-        arbol.ingresar(new Cueva());
+    private static Tree loadInitialTree() {
+        Tree tree = new Tree();
+        tree.add(new Cove());
         while (JOptionPane.showConfirmDialog(null, "¿Desea hacer una nueva excavación?") == JOptionPane.YES_OPTION) {
-            arbol.ingresar(new Cueva());
+            tree.add(new Cove());
         }
-        return arbol;
+        return tree;
     }
     
-    private static LinkedList<Camion> cargarCamionesIniciales() {
-        LinkedList<Camion> camiones = new LinkedList<>();
-        camiones.add(new Camion(40, 30));
-        return camiones;
+    private static LinkedList<Truck> loadInitialTrucks() {
+        LinkedList<Truck> trucks = new LinkedList<>();
+        trucks.add(new Truck(40, 30));
+        return trucks;
     }
 }

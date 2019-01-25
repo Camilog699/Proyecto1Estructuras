@@ -1,48 +1,48 @@
 package Clases;
 
-import Modelos.Cueva;
+import Modelos.Cove;
 
-public class Nodo {
-    private Nodo izq;
-    private Cueva cueva;
-    private Nodo der;
+public class Node {
+    private Node izq;
+    private Cove cove;
+    private Node der;
     private int nivel;
     private int fe;
     
-    public Nodo() {
+    public Node() {
     
     }
     
-    Nodo(Nodo izq, Cueva cueva, Nodo der, int nivel) {
+    Node(Node izq, Cove cove, Node der, int nivel) {
         this.izq = izq;
-        this.cueva = cueva;
+        this.cove = cove;
         this.der = der;
         this.nivel = nivel;
         this.fe = 0;
     }
     
     
-    public Nodo getIzq() {
+    public Node getLeft() {
         return izq;
     }
     
-    public void setIzq(Nodo izq) {
+    public void setIzq(Node izq) {
         this.izq = izq;
     }
     
-    public Cueva getCueva() {
-        return cueva;
+    public Cove getCove() {
+        return cove;
     }
     
-    public void setCueva(Cueva cueva) {
-        this.cueva = cueva;
+    public void setCove(Cove cove) {
+        this.cove = cove;
     }
     
-    public Nodo getDer() {
+    public Node getRight() {
         return der;
     }
     
-    public void setDer(Nodo der) {
+    public void setDer(Node der) {
         this.der = der;
     }
     
