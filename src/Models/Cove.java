@@ -1,4 +1,4 @@
-package Modelos;
+package Models;
 
 import java.util.Random;
 
@@ -9,7 +9,7 @@ public class Cove extends Base {
     private boolean blocked;
     
     public Cove() {
-        super(0, 0, 60, 60, "../img/cueva.png");
+        super(0, 0, 60, 60, "../img/cove.png");
         this.material = materials[new Random().nextInt(materials.length)];
         this.amount = new Random().nextInt(500);
     }

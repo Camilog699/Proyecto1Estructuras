@@ -1,4 +1,4 @@
-package Modelos;
+package Models;
 
 public class HPath extends  Base{
     public HPath(int x, int y) {

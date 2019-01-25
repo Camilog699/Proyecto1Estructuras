@@ -1,7 +1,7 @@
-package Vistas.Board;
+package Views.Board;
 
-import Clases.Tree;
-import Modelos.Truck;
+import Classes.Tree;
+import Models.Truck;
 
 import javax.swing.*;
 import java.util.LinkedList;

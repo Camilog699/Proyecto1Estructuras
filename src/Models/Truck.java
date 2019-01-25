@@ -1,4 +1,4 @@
-package Modelos;
+package Models;
 
 import javax.swing.*;
 
@@ -7,7 +7,7 @@ public class Truck extends Base implements Runnable {
     int image;
     
     public Truck(int x, int y) {
-        super(x, y, 73, 43, "../img/camion/camion1.png");
+        super(x, y, 73, 43, "../img/truck/truck1.png");
         this.image = 1;
         new Thread(this).start();
     }
@@ -17,7 +17,7 @@ public class Truck extends Base implements Runnable {
         while (true) {
             this.image++;
             if (this.image > 4) this.image = 1;
-            this.setSprite(new ImageIcon(getClass().getResource("../img/camion/camion" + image + ".png")));
+            this.setSprite(new ImageIcon(getClass().getResource("../img/truck/truck" + image + ".png")));
             try {
                 Thread.sleep(166);
             } catch (InterruptedException e) {

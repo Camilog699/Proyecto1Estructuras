@@ -1,8 +1,8 @@
-import Clases.Tree;
-import Modelos.Truck;
-import Modelos.Cove;
-import Vistas.Board.BoardFrame;
-import Vistas.Board.Board;
+import Classes.Tree;
+import Models.Truck;
+import Models.Cove;
+import Views.Board.BoardFrame;
+import Views.Board.Board;
 
 import javax.swing.*;
 import java.awt.*;

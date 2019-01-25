@@ -1,4 +1,4 @@
-package Modelos;
+package Models;
 
 import javax.swing.*;
 

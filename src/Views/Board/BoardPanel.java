@@ -1,11 +1,11 @@
-package Vistas.Board;
+package Views.Board;
 
-import Clases.Tree;
-import Clases.Node;
-import Modelos.HPath;
-import Modelos.VPath;
-import Modelos.Truck;
-import Modelos.Cove;
+import Classes.Tree;
+import Classes.Node;
+import Models.HPath;
+import Models.VPath;
+import Models.Truck;
+import Models.Cove;
 
 import java.awt.*;
 import java.util.LinkedList;

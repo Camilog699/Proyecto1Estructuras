@@ -1,6 +1,6 @@
-package Clases;
+package Classes;
 
-import Modelos.Cove;
+import Models.Cove;
 
 public class Node {
     private Node izq;

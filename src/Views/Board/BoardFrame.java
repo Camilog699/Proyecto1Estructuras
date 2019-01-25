@@ -1,4 +1,4 @@
-package Vistas.Board;
+package Views.Board;
 
 import java.awt.*;
 

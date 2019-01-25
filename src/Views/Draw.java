@@ -2,6 +2,6 @@ package GUI;
 
 import javax.swing.*;
 
-public class Dibujo extends JPanel {
+public class Draw extends JPanel {
 
 }
