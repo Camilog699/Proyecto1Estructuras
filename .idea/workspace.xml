@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2bd1242d-d601-4a65-9a29-7812653eafef" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/tree.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HOLA MUNDO" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -29,17 +29,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tree.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="46">
-              <caret line="2" column="8" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="12" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Models/Cove.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="92">
-              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+            <state relative-caret-position="322">
+              <caret line="14" column="25" lean-forward="true" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -143,18 +134,6 @@
               <item name="Proyecto1Estructuras" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="Proyecto1Estructuras" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Proyecto1Estructuras" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Classes" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Proyecto1Estructuras" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Proyecto1Estructuras" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Models" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -166,7 +145,7 @@
   <component name="PropertiesComponent">
     <property name="UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW" value="true" />
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.SHOW" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1548535859438" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1548536075453" />
     <property name="settings.editor.selected.configurable" value="terminal" />
   </component>
   <component name="RunDashboard">
@@ -226,6 +205,14 @@
       <option name="presentableId" value="Default" />
       <updated>1539099320148</updated>
     </task>
+    <task id="LOCAL-00001" summary="add the json">
+      <created>1548536122178</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1548536122178</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -285,6 +272,10 @@
       <window_info anchor="right" id="Palette&#9;" order="4" />
       <window_info anchor="right" id="Maven Projects" order="5" />
     </layout-to-restore>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add the json" />
+    <option name="LAST_COMMIT_MESSAGE" value="add the json" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/Modelos.java" />
@@ -360,8 +351,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tree.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret line="2" column="8" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="12" />
+        <state relative-caret-position="322">
+          <caret line="14" column="25" lean-forward="true" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
         </state>
       </provider>
     </entry>
