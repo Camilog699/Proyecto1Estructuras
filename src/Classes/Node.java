@@ -3,31 +3,30 @@ package Classes;
 import Models.Cove;
 
 public class Node {
-    private Node izq;
+    private Node left;
     private Cove cove;
-    private Node der;
-    private int nivel;
+    private Node right;
+    private int level;
     private int fe;
     
     public Node() {
-    
     }
     
-    Node(Node izq, Cove cove, Node der, int nivel) {
-        this.izq = izq;
+    Node(Node left, Cove cove, Node right, int level) {
+        this.left = left;
         this.cove = cove;
-        this.der = der;
-        this.nivel = nivel;
+        this.right = right;
+        this.level = level;
         this.fe = 0;
     }
     
     
     public Node getLeft() {
-        return izq;
+        return left;
     }
     
-    public void setIzq(Node izq) {
-        this.izq = izq;
+    public void setLeft(Node left) {
+        this.left = left;
     }
     
     public Cove getCove() {
@@ -39,19 +38,19 @@ public class Node {
     }
     
     public Node getRight() {
-        return der;
+        return right;
     }
     
-    public void setDer(Node der) {
-        this.der = der;
+    public void setRight(Node right) {
+        this.right = right;
     }
     
-    public int getNivel() {
-        return nivel;
+    public int getLevel() {
+        return level;
     }
     
-    public void setNivel(int nivel) {
-        this.nivel = nivel;
+    public void setLevel(int level) {
+        this.level = level;
     }
     
     public int getFe() {
