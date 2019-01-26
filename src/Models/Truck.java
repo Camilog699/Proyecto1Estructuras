@@ -5,6 +5,7 @@ import javax.swing.*;
 public class Truck extends Base implements Runnable {
     private Thread thread;
     int image;
+    int capacity;
     
     public Truck(int x, int y) {
         super(x, y, 73, 43, "../img/truck/truck1.png");
