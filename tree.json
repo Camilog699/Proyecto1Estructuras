@@ -1,0 +1,26 @@
+[
+  {
+    "material": "Gold",
+    "amount": 120
+  },
+  {
+    "material": "Stone",
+    "amount": 345
+  },
+  {
+    "material": "Wood",
+    "amount": 500
+  },
+  {
+    "material": "Silver",
+    "amount": 275
+  },
+  {
+    "material": "Gold",
+    "amount": 190
+  },
+  {
+    "material": "Bronze",
+    "amount": 120
+  }
+]
