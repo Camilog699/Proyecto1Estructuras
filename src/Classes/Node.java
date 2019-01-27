@@ -1,10 +1,10 @@
 package Classes;
 
-import Models.Cove;
+import Models.Cave;
 
 public class Node {
     private Node left;
-    private Cove cove;
+    private Cave cave;
     private Node right;
     private int level;
     private int fe;
@@ -12,9 +12,9 @@ public class Node {
     public Node() {
     }
     
-    Node(Node left, Cove cove, Node right, int level) {
+    Node(Node left, Cave cave, Node right, int level) {
         this.left = left;
-        this.cove = cove;
+        this.cave = cave;
         this.right = right;
         this.level = level;
         this.fe = 0;
@@ -29,12 +29,12 @@ public class Node {
         this.left = left;
     }
     
-    public Cove getCove() {
-        return cove;
+    public Cave getCave() {
+        return cave;
     }
     
-    public void setCove(Cove cove) {
-        this.cove = cove;
+    public void setCave(Cave cave) {
+        this.cave = cave;
     }
     
     public Node getRight() {

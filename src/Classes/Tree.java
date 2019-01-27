@@ -1,18 +1,20 @@
 package Classes;
 
-import Models.Cove;
+import Models.Cave;
 
 public class Tree {
     Node root;
     int height;
     
-    public void add(Cove cove) {
+    
+    
+    public void add(Cave cave) {
         if (this.root == null) {
-            cove.setX(720);
-            cove.setY(20);
-            this.root = new Node(null, cove, null, 1);
+            cave.setX(720);
+            cave.setY(20);
+            this.root = new Node(null, cave, null, 1);
         } else {
-            addNode(this.root, cove, 2);
+            addNode(this.root, cave, 2);
         }
         updateFe(this.root);
         this.height++;
@@ -61,22 +63,22 @@ public class Tree {
         }
     }
     
-    private boolean addNode(Node parent, Cove cove, int level) {
+    private boolean addNode(Node parent, Cave cave, int level) {
         if (parent == null) return true;
-        if (cove.getAmount() < parent.getCove().getAmount()) {
-            if (addNode(parent.getLeft(), cove, level + 1)) {
-                parent.setLeft(new Node(null, cove, null, level));
-                cove.setX(parent.getCove().getX() - 100);
-                cove.setY(parent.getCove().getY() + 70);
+        if (cave.getAmount() < parent.getCave().getAmount()) {
+            if (addNode(parent.getLeft(), cave, level + 1)) {
+                parent.setLeft(new Node(null, cave, null, level));
+                cave.setX(parent.getCave().getX() - 100);
+                cave.setY(parent.getCave().getY() + 70);
                 return false;
             }
         }
         
-        if (cove.getAmount() >= parent.getCove().getAmount()) {
-            if (addNode(parent.getRight(), cove, level + 1)) {
-                parent.setRight(new Node(null, cove, null, level));
-                cove.setX(parent.getCove().getX() + 100);
-                cove.setY(parent.getCove().getY() + 70);
+        if (cave.getAmount() >= parent.getCave().getAmount()) {
+            if (addNode(parent.getRight(), cave, level + 1)) {
+                parent.setRight(new Node(null, cave, null, level));
+                cave.setX(parent.getCave().getX() + 100);
+                cave.setY(parent.getCave().getY() + 70);
                 return false;
             }
         }
@@ -87,12 +89,12 @@ public class Tree {
         if (padre == null) return;
         preOrden(padre.getLeft());
         preOrden(padre.getRight());
-        System.out.println(padre.getCove());
+        System.out.println(padre.getCave());
     }
     
     void preOrden(Node padre) {
         if (padre == null) return;
-        System.out.println(padre.getCove());
+        System.out.println(padre.getCave());
         posOrden(padre.getLeft());
         posOrden(padre.getRight());
     }
@@ -100,15 +102,15 @@ public class Tree {
     void inOrden(Node padre) {
         if (padre == null) return;
         inOrden(padre.getLeft());
-        System.out.println(padre.getCove());
+        System.out.println(padre.getCave());
         inOrden(padre.getRight());
     }
     
-    boolean eliminarHoja(Node padre, Cove cove) {
+    boolean eliminarHoja(Node padre, Cave cave) {
         if (padre == null) return false;
-        if (eliminarHoja(padre.getLeft(), cove)) padre.setLeft(null);
-        if (eliminarHoja(padre.getRight(), cove)) padre.setRight(null);
-        return padre.getRight() == null && padre.getLeft() == null && padre.getCove() == cove;
+        if (eliminarHoja(padre.getLeft(), cave)) padre.setLeft(null);
+        if (eliminarHoja(padre.getRight(), cave)) padre.setRight(null);
+        return padre.getRight() == null && padre.getLeft() == null && padre.getCave() == cave;
     }
     
     public boolean eliminarHijos(Node padre) {

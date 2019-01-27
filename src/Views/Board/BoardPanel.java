@@ -5,7 +5,7 @@ import Classes.Node;
 import Models.HPath;
 import Models.VPath;
 import Models.Truck;
-import Models.Cove;
+import Models.Cave;
 
 import java.awt.*;
 import java.util.LinkedList;
@@ -32,11 +32,11 @@ public class BoardPanel extends javax.swing.JPanel {
     }
     
     private void drawCove(Node n, Graphics g) {
-        Cove cove = n.getCove();
-        g.drawImage(cove.getSprite().getImage(), cove.getX(), cove.getY(), cove.getWidth(), cove.getHeight(), this);
-        createInfoLabels(cove, g);
+        Cave cave = n.getCave();
+        g.drawImage(cave.getSprite().getImage(), cave.getX(), cave.getY(), cave.getWidth(), cave.getHeight(), this);
+        createInfoLabels(cave, g);
         if (n.getLeft() != null || n.getRight() != null) {
-            VPath vPath = new VPath(cove.getX() - 12 + cove.getWidth() / 2, cove.getY() + cove.getHeight());
+            VPath vPath = new VPath(cave.getX() - 12 + cave.getWidth() / 2, cave.getY() + cave.getHeight());
             g.fillRect(vPath.getX(), vPath.getY(), vPath.getWidth(), vPath.getHeight());
             if (n.getLeft() != null) {
                 HPath hPath = new HPath(vPath.getX() - vPath.getHeight(), vPath.getY() + vPath.getHeight() / 2);
@@ -51,7 +51,7 @@ public class BoardPanel extends javax.swing.JPanel {
         }
     }
     
-    private void createInfoLabels(Cove c, Graphics g) {
+    private void createInfoLabels(Cave c, Graphics g) {
         g.drawRect(c.getX() - 2, c.getY() - 19, c.getMaterial().length() * 8, 15);
         g.drawRect(c.getX() + c.getWidth() + 1, c.getY() + c.getHeight() - 12, Integer.toString(c.getAmount()).length() * 8, 15);
         g.drawString(c.getMaterial(), c.getX(), c.getY() - 7);
