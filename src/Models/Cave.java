@@ -2,13 +2,19 @@ package Models;
 
 import java.util.Random;
 
-public class Cove extends Base {
+public class Cave extends Base {
     private String materials[] = {"Madera", "Oro", "Plata", "Bronce", "Piedra"};
     private String material;
     private int amount;
     private boolean blocked;
     
-    public Cove() {
+    public Cave(String material, int amount) {
+        super(0, 0, 60, 60, "../img/cove.png");
+        this.material = material;
+        this.amount = amount;
+    }
+    
+    public Cave() {
         super(0, 0, 60, 60, "../img/cove.png");
         this.material = materials[new Random().nextInt(materials.length)];
         this.amount = new Random().nextInt(500);
