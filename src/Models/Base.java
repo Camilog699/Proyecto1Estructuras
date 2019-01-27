@@ -43,7 +43,7 @@ public class Base {
     public void setY(int y) {
         this.y = y;
     }
-    
+
     public int getWidth() {
         return width;
     }
