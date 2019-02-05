@@ -1,6 +1,7 @@
 package Views.Board;
 
 import Classes.Tree;
+import Models.Cave;
 import Models.Truck;
 
 import javax.swing.*;
@@ -10,17 +11,15 @@ public class Board {
     Tree tree;
     LinkedList<Truck> trucks;
 
+    public JPanel panel;
+    private JButton btnAddCave;
+    private JButton btnAddTruck;
     public Board(Tree tree, LinkedList<Truck> trucks) {
         this.tree = tree;
         this.trucks = trucks;
-        btnAddTruck.addActionListener(e -> {
-            Truck truck = new Truck(40, 30);
-            trucks.add(truck);
-        });
+        btnAddTruck.addActionListener(e -> trucks.add(new Truck(40, 30)));
+        btnAddCave.addActionListener(e -> tree.add(new Cave()));
     }
-
-    public JPanel panel;
-    private JButton btnAddTruck;
 
     private void createUIComponents() {
         this.panel = new BoardPanel(tree, trucks);

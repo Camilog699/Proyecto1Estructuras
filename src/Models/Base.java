@@ -8,19 +8,15 @@ public class Base {
     private int width;
     private int height;
     private ImageIcon sprite;
-    
-    public Base() {
-    
-    }
-    
-    public Base(int x, int y, int width, int height) {
+
+    Base(int x, int y, int width, int height) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
     }
-    
-    public Base(int x, int y, int width, int height, String ruta) {
+
+    Base(int x, int y, int width, int height, String ruta) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -48,23 +44,15 @@ public class Base {
         return width;
     }
     
-    public void setWidth(int width) {
-        this.width = width;
-    }
-    
     public int getHeight() {
         return height;
-    }
-    
-    public void setHeight(int height) {
-        this.height = height;
     }
     
     public ImageIcon getSprite() {
         return sprite;
     }
-    
-    public void setSprite(ImageIcon sprite) {
+
+    void setSprite(ImageIcon sprite) {
         this.sprite = sprite;
     }
 }

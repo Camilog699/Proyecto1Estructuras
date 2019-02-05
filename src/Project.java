@@ -1,8 +1,8 @@
 import Classes.Tree;
-import Models.Truck;
 import Models.Cave;
-import Views.Board.BoardFrame;
+import Models.Truck;
 import Views.Board.Board;
+import Views.Board.BoardFrame;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -10,7 +10,6 @@ import org.json.simple.parser.JSONParser;
 import javax.swing.*;
 import java.awt.*;
 import java.io.FileReader;
-import java.util.Iterator;
 import java.util.LinkedList;
 
 public class Project {
@@ -50,13 +49,11 @@ public class Project {
             Object cavesJSON = parser.parse(new FileReader(Project.class.getResource("json/tree.json").getFile()));
         
             JSONArray caves = (JSONArray) cavesJSON;
-            Iterator iterator = caves.iterator();
-            while (iterator.hasNext()) {
-                JSONObject jsonTree = (JSONObject) iterator.next();
+            for (Object cave : caves) {
+                JSONObject jsonTree = (JSONObject) cave;
                 String material = (String) jsonTree.get("material");
                 int amount = ((Long) jsonTree.get("amount")).intValue();
-                Cave cave = new Cave(material, amount);
-                tree.add(cave);
+                tree.add(new Cave(material, amount));
             }
         
         } catch (Exception e) {
