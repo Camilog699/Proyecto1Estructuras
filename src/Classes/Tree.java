@@ -3,135 +3,140 @@ package Classes;
 import Models.Cave;
 
 public class Tree {
-    Node root;
-    int height;
-    
-    
-    
+    private Node root;
+
     public void add(Cave cave) {
         if (this.root == null) {
             cave.setX(720);
             cave.setY(20);
-            this.root = new Node(null, cave, null, 1);
+            this.root = new Node(null, cave, null);
         } else {
-            addNode(this.root, cave, 2);
+            addNode(this.root, cave);
         }
-        updateFe(this.root);
-        this.height++;
+        updatePositions(this.root);
     }
-    
-    private Node rotacionDerecha(Node padre) {
-        preOrden(padre);
-        Node aux = padre.getLeft();
-        padre.setLeft(aux.getRight());
-        aux.setRight(padre);
-        padre.setFe(padre.getLeft().getFe() - padre.getRight().getFe());
-        aux.setFe(aux.getLeft().getFe() - aux.getRight().getFe() + 1);
-        return aux;
+
+    private void updatePositions(Node parent) {
+        if (parent == null) return;
+        int rootX = 720;
+        int rootY = 20;
+        int distanceX = 150;
+        int distanceY = 70;
+        if (parent == this.root) {
+            parent.getCave().setX(rootX);
+            parent.getCave().setY(rootY);
+        }
+        if (parent.getLeft() != null) {
+            parent.getLeft().getCave().setX(parent.getCave().getX() - distanceX);
+            parent.getLeft().getCave().setY(parent.getCave().getY() + distanceY);
+        }
+        if (parent.getRight() != null) {
+            parent.getRight().getCave().setX(parent.getCave().getX() + distanceX);
+            parent.getRight().getCave().setY(parent.getCave().getY() + distanceY);
+        }
+        updatePositions(parent.getLeft());
+        updatePositions(parent.getRight());
     }
-    
-    private Node rotacionDobleDerecha(Node padre) {
-        Node aux;
-        padre.setRight(rotacionDerecha(padre));
-        aux = rotacionIzquierda(padre);
-        return aux;
+
+    private Node checkLeftBalance(Node parent, Cave cave) {
+        int rightFe = (parent.getRight() == null) ? -1 : parent.getRight().getFe();
+        if (parent.getLeft().getFe() - rightFe == 2) {
+            if (cave.getAmount() < parent.getLeft().getCave().getAmount()) {
+                parent = rightRotation(parent);
+            } else {
+                parent = doubleRightRotation(parent);
+            }
+        }
+        return parent;
     }
-    
-    private Node rotacionDobleIzquierda(Node padre) {
-        Node aux;
-        padre.setLeft(rotacionIzquierda(padre.getLeft()));
-        aux = rotacionDerecha(padre);
-        return aux;
+
+    private Node checkRightBalance(Node parent, Cave cave) {
+        int leftFe = (parent.getLeft() == null) ? -1 : parent.getLeft().getFe();
+        if (parent.getRight().getFe() - leftFe == 2) {
+            if (cave.getAmount() > parent.getRight().getCave().getAmount()) {
+                parent = leftRotation(parent);
+            } else {
+                parent = doubleLeftRotation(parent);
+            }
+        }
+        return parent;
     }
-    
-    private Node rotacionIzquierda(Node padre) {
-        Node aux = padre.getRight();
-        padre.setRight(aux.getLeft());
-        aux.setLeft(padre);
-        padre.setFe(padre.getLeft().getFe() - padre.getRight().getFe());
-        aux.setFe(aux.getLeft().getFe() - aux.getRight().getFe() + 1);
-        return aux;
+
+    private Node addNode(Node parent, Cave cave) {
+        if (parent == null) {
+            parent = new Node(null, cave, null);
+        } else if (cave.getAmount() < parent.getCave().getAmount()) {
+            parent.setLeft(addNode(parent.getLeft(), cave));
+            parent = checkLeftBalance(parent, cave);
+        } else if (cave.getAmount() > parent.getCave().getAmount()) {
+            parent.setRight(addNode(parent.getRight(), cave));
+            parent = checkRightBalance(parent, cave);
+        }
+        updateFe(parent);
+        return parent;
     }
-    
+
     private void updateFe(Node parent) {
-        if (parent.getLeft() == null && parent.getRight() == null) {
-            parent.setFe(0);
-        } else if (parent.getLeft() != null && parent.getRight() == null || parent.getLeft() == null && parent.getRight() != null) {
-            parent.setFe(parent.getFe() + 1);
-        } else {
+        if (parent.getRight() != null && parent.getLeft() != null) {
             parent.setFe(Math.max(parent.getLeft().getFe(), parent.getRight().getFe()) + 1);
+        } else if (parent.getLeft() != null) {
+            parent.setFe(parent.getLeft().getFe() + 1);
+        } else if (parent.getRight() != null) {
+            parent.setFe(parent.getRight().getFe() + 1);
+        } else {
+            parent.setFe(0);
         }
     }
-    
-    private boolean addNode(Node parent, Cave cave, int level) {
-        if (parent == null) return true;
-        if (cave.getAmount() < parent.getCave().getAmount()) {
-            if (addNode(parent.getLeft(), cave, level + 1)) {
-                parent.setLeft(new Node(null, cave, null, level));
-                cave.setX(parent.getCave().getX() - 100);
-                cave.setY(parent.getCave().getY() + 70);
-                return false;
-            }
-        }
-        
-        if (cave.getAmount() >= parent.getCave().getAmount()) {
-            if (addNode(parent.getRight(), cave, level + 1)) {
-                parent.setRight(new Node(null, cave, null, level));
-                cave.setX(parent.getCave().getX() + 100);
-                cave.setY(parent.getCave().getY() + 70);
-                return false;
-            }
-        }
-        return false;
+
+    private Node rightRotation(Node parent) {
+        Node aux = parent.getLeft();
+        parent.setLeft(aux.getRight());
+        aux.setRight(parent);
+        if (parent == this.root) this.root = aux;
+        updateFe(aux);
+        return aux;
     }
-    
-    void posOrden(Node padre) {
-        if (padre == null) return;
-        preOrden(padre.getLeft());
-        preOrden(padre.getRight());
-        System.out.println(padre.getCave());
+
+    private Node doubleRightRotation(Node parent) {
+        Node aux;
+        parent.setLeft(leftRotation(parent.getLeft()));
+        aux = rightRotation(parent);
+        return aux;
     }
-    
-    void preOrden(Node padre) {
-        if (padre == null) return;
-        System.out.println(padre.getCave());
-        posOrden(padre.getLeft());
-        posOrden(padre.getRight());
+
+    private Node doubleLeftRotation(Node parent) {
+        Node aux;
+        parent.setRight(rightRotation(parent.getRight()));
+        aux = leftRotation(parent);
+        return aux;
     }
-    
-    void inOrden(Node padre) {
-        if (padre == null) return;
-        inOrden(padre.getLeft());
-        System.out.println(padre.getCave());
-        inOrden(padre.getRight());
+
+    private Node leftRotation(Node parent) {
+        Node aux = parent.getRight();
+        parent.setRight(aux.getLeft());
+        aux.setLeft(parent);
+        if (parent == this.root) this.root = aux;
+        updateFe(aux);
+        return aux;
     }
-    
-    boolean eliminarHoja(Node padre, Cave cave) {
+
+    private boolean eliminarHoja(Node padre, Cave cave) {
         if (padre == null) return false;
         if (eliminarHoja(padre.getLeft(), cave)) padre.setLeft(null);
         if (eliminarHoja(padre.getRight(), cave)) padre.setRight(null);
         return padre.getRight() == null && padre.getLeft() == null && padre.getCave() == cave;
     }
-    
+
     public boolean eliminarHijos(Node padre) {
         if (padre == null) return false;
         return false;
     }
-    
+
     public Node getRoot() {
         return root;
     }
-    
+
     public void setRoot(Node root) {
         this.root = root;
     }
-    
-    public int getHeight() {
-        return height;
-    }
-    
-    public void setHeight(int height) {
-        this.height = height;
-    }
-    
 }

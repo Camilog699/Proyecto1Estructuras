@@ -1,11 +1,11 @@
 package Views.Board;
 
-import Classes.Tree;
 import Classes.Node;
-import Models.HPath;
-import Models.VPath;
-import Models.Truck;
+import Classes.Tree;
 import Models.Cave;
+import Models.HPath;
+import Models.Truck;
+import Models.VPath;
 
 import java.awt.*;
 import java.util.LinkedList;
@@ -52,8 +52,6 @@ public class BoardPanel extends javax.swing.JPanel {
     }
     
     private void createInfoLabels(Cave c, Graphics g) {
-        g.drawRect(c.getX() - 2, c.getY() - 19, c.getMaterial().length() * 8, 15);
-        g.drawRect(c.getX() + c.getWidth() + 1, c.getY() + c.getHeight() - 12, Integer.toString(c.getAmount()).length() * 8, 15);
         g.drawString(c.getMaterial(), c.getX(), c.getY() - 7);
         g.drawString(Integer.toString(c.getAmount()), c.getX() + c.getWidth() + 3, c.getY() + c.getHeight());
     }
