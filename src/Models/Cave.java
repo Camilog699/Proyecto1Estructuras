@@ -6,7 +6,7 @@ public class Cave extends Base {
     private String material;
     private int amount;
     private int[] unitPrices = {5, 10, 30, 50, 150};
-    private String[] materials = {"Stone", "Wood", "Bronze", "Plate", "Gold"};
+    private String[] materials = {"Stone", "Wood", "Bronze", "Silver", "Gold"};
     private int value;
     private boolean blocked;
     

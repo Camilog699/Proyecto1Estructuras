@@ -46,10 +46,10 @@ public class BoardPanel extends javax.swing.JPanel {
             }
         }
     }
-    
-    private void createInfoLabels(Cave c, Graphics g) {
-        g.drawString(c.getMaterial(), c.getX(), c.getY() - 7);
-        g.drawString(Integer.toString(c.getAmount()), c.getX() + c.getWidth() + 3, c.getY() + c.getHeight());
+
+    private void createInfoLabels(Cave cave, Graphics g) {
+        g.drawString(cave.getMaterial() + ":" + cave.getAmount(), cave.getX(), cave.getY() - 7);
+        g.drawString(Integer.toString(cave.getValue()), cave.getX() + cave.getWidth() + 3, cave.getY() + cave.getHeight());
     }
     
     private void drawTruck(Truck truck, Graphics g) {
