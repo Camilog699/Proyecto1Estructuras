@@ -1,6 +1,4 @@
-package Classes;
-
-import Models.Cave;
+package Models;
 
 public class Tree {
     private Node root;
