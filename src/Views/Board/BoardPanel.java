@@ -1,14 +1,10 @@
 package Views.Board;
 
-import Classes.Node;
-import Classes.Tree;
-import Models.Cave;
-import Models.HPath;
-import Models.Truck;
-import Models.VPath;
+import Models.*;
 
 import java.awt.*;
 import java.util.LinkedList;
+import java.util.Map;
 
 public class BoardPanel extends javax.swing.JPanel {
     Tree tree;
@@ -61,8 +57,15 @@ public class BoardPanel extends javax.swing.JPanel {
     }
     
     private void loop(Graphics g) {
-        drawTree(g);
-        trucks.forEach(truck -> drawTruck(truck, g));
+        Map<?, ?> desktopHints =
+                (Map<?, ?>) Toolkit.getDefaultToolkit().getDesktopProperty("awt.font.desktophints");
+
+        Graphics2D g2d = (Graphics2D) g;
+        if (desktopHints != null) {
+            g2d.setRenderingHints(desktopHints);
+        }
+        drawTree(g2d);
+        trucks.forEach(truck -> drawTruck(truck, g2d));
         repaint();
     }
 }

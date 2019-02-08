@@ -1,6 +1,4 @@
-package Classes;
-
-import Models.Cave;
+package Models;
 
 public class Node {
     private Node left;

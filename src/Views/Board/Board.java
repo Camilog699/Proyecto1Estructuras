@@ -1,7 +1,7 @@
 package Views.Board;
 
-import Classes.Tree;
 import Models.Cave;
+import Models.Tree;
 import Models.Truck;
 
 import javax.swing.*;

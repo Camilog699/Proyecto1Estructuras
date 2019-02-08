@@ -1,7 +1,5 @@
 package Models;
 
-import Classes.Node;
-
 import javax.swing.*;
 import java.util.LinkedList;
 
@@ -45,10 +43,10 @@ public class Truck extends Base implements Runnable {
     }
 
     private void moveOptim(Truck truck, LinkedList<Node> cave) {
-        if (path.get(0).getLeft().getCave().getAmount() < path.get(0).getRight().getCave().getAmount()) {
+        if (path.get(0).getLeft().getCave().getValue() < path.get(0).getRight().getCave().getValue()) {
             truck.setY(path.get(0).getRight().getCave().getY());
             truck.setX(path.get(0).getRight().getCave().getX());
-        } else if (path.get(0).getLeft().getCave().getAmount() > path.get(0).getRight().getCave().getAmount()) {
+        } else if (path.get(0).getLeft().getCave().getValue() > path.get(0).getRight().getCave().getValue()) {
             truck.setY(path.get(0).getLeft().getCave().getY());
             truck.setX(path.get(0).getLeft().getCave().getX());
         } else {
