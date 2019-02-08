@@ -39,7 +39,7 @@ public class Tree {
     private Node checkLeftBalance(Node parent, Cave cave) {
         int rightFe = (parent.getRight() == null) ? -1 : parent.getRight().getFe();
         if (parent.getLeft().getFe() - rightFe == 2) {
-            if (cave.getAmount() < parent.getLeft().getCave().getAmount()) {
+            if (cave.getValue() < parent.getLeft().getCave().getValue()) {
                 parent = rightRotation(parent);
             } else {
                 parent = doubleRightRotation(parent);
@@ -51,7 +51,7 @@ public class Tree {
     private Node checkRightBalance(Node parent, Cave cave) {
         int leftFe = (parent.getLeft() == null) ? -1 : parent.getLeft().getFe();
         if (parent.getRight().getFe() - leftFe == 2) {
-            if (cave.getAmount() > parent.getRight().getCave().getAmount()) {
+            if (cave.getValue() > parent.getRight().getCave().getValue()) {
                 parent = leftRotation(parent);
             } else {
                 parent = doubleLeftRotation(parent);
@@ -63,10 +63,10 @@ public class Tree {
     private Node addNode(Node parent, Cave cave) {
         if (parent == null) {
             parent = new Node(null, cave, null);
-        } else if (cave.getAmount() < parent.getCave().getAmount()) {
+        } else if (cave.getValue() < parent.getCave().getValue()) {
             parent.setLeft(addNode(parent.getLeft(), cave));
             parent = checkLeftBalance(parent, cave);
-        } else if (cave.getAmount() > parent.getCave().getAmount()) {
+        } else if (cave.getValue() > parent.getCave().getValue()) {
             parent.setRight(addNode(parent.getRight(), cave));
             parent = checkRightBalance(parent, cave);
         }
