@@ -2,12 +2,16 @@ package Models;
 
 public class Tree {
     private Node root;
+    private Node maxProfit;
+    private Node maxAmount;
 
     public void add(Cave cave) {
         if (this.root == null) {
             cave.setX(720);
             cave.setY(20);
             this.root = new Node(null, cave, null);
+            maxProfit = this.root;
+            maxAmount = this.root;
         } else {
             addNode(this.root, cave);
         }
@@ -63,6 +67,8 @@ public class Tree {
     private Node addNode(Node parent, Cave cave) {
         if (parent == null) {
             parent = new Node(null, cave, null);
+            if (parent.getCave().getAmount() > maxAmount.getCave().getAmount()) this.maxAmount = parent;
+            if (parent.getCave().getValue() > maxProfit.getCave().getValue()) this.maxProfit = parent;
         } else if (cave.getValue() < parent.getCave().getValue()) {
             parent.setLeft(addNode(parent.getLeft(), cave));
             parent = checkLeftBalance(parent, cave);
@@ -136,5 +142,21 @@ public class Tree {
 
     public void setRoot(Node root) {
         this.root = root;
+    }
+
+    public Node getMaxProfit() {
+        return maxProfit;
+    }
+
+    public void setMaxProfit(Node maxProfit) {
+        this.maxProfit = maxProfit;
+    }
+
+    public Node getMaxAmount() {
+        return maxAmount;
+    }
+
+    public void setMaxAmount(Node maxAmount) {
+        this.maxAmount = maxAmount;
     }
 }
