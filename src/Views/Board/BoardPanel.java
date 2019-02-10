@@ -22,12 +22,30 @@ public class BoardPanel extends javax.swing.JPanel {
         super.paintComponent(g);
         if (!paused) loop(g);
     }
-    
-    private void drawTree(Graphics g) {
+
+    private void drawTree(Graphics2D g) {
+        brightMaxAmount(g);
+        brightMaxProfit(g);
         drawCove(tree.getRoot(), g);
     }
-    
-    private void drawCove(Node n, Graphics g) {
+
+    private void brightMaxAmount(Graphics2D g) {
+        Color actualColor = g.getColor();
+        Cave cave = tree.getMaxAmount().getCave();
+        g.setColor(Color.decode("#0074D9"));
+        g.fillOval(cave.getX() - 5, cave.getY() - 5, cave.getWidth() + 5, cave.getHeight() + 5);
+        g.setColor(actualColor);
+    }
+
+    private void brightMaxProfit(Graphics2D g) {
+        Color actualColor = g.getColor();
+        Cave cave = tree.getMaxProfit().getCave();
+        g.setColor(Color.decode("#FF851B"));
+        g.fillOval(cave.getX() - 5, cave.getY() - 5, cave.getWidth() + 5, cave.getHeight() + 5);
+        g.setColor(actualColor);
+    }
+
+    private void drawCove(Node n, Graphics2D g) {
         Cave cave = n.getCave();
         g.drawImage(cave.getSprite().getImage(), cave.getX(), cave.getY(), cave.getWidth(), cave.getHeight(), this);
         createInfoLabels(cave, g);
@@ -47,23 +65,28 @@ public class BoardPanel extends javax.swing.JPanel {
         }
     }
 
-    private void createInfoLabels(Cave cave, Graphics g) {
+    private void createInfoLabels(Cave cave, Graphics2D g) {
         g.drawString(cave.getMaterial() + ":" + cave.getAmount(), cave.getX(), cave.getY() - 7);
         g.drawString(Integer.toString(cave.getValue()), cave.getX() + cave.getWidth() + 3, cave.getY() + cave.getHeight());
     }
-    
-    private void drawTruck(Truck truck, Graphics g) {
+
+    private void drawTruck(Truck truck, Graphics2D g) {
         g.drawImage(truck.getSprite().getImage(), truck.getX(), truck.getY(), truck.getWidth(), truck.getHeight(), this);
     }
-    
-    private void loop(Graphics g) {
+
+    private void activateAntiAliasing(Graphics2D g2d) {
         Map<?, ?> desktopHints =
                 (Map<?, ?>) Toolkit.getDefaultToolkit().getDesktopProperty("awt.font.desktophints");
 
-        Graphics2D g2d = (Graphics2D) g;
         if (desktopHints != null) {
             g2d.setRenderingHints(desktopHints);
         }
+    }
+
+    private void loop(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
+        activateAntiAliasing(g2d);
+
         drawTree(g2d);
         trucks.forEach(truck -> drawTruck(truck, g2d));
         repaint();
