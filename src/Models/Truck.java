@@ -8,9 +8,12 @@ public class Truck extends Base implements Runnable {
     int image;
     int capacity;
     Cave nextCave;
-    LinkedList<Node> path;
+    LinkedList<Node> caves;
     boolean move = true;
-    Truck t;
+    boolean moveRightX = true;
+    boolean moveRightY = true;
+    boolean moveleftX = true;
+    boolean moveleftY = true;
 
     public Truck(int x, int y) {
         super(x, y, 73, 43, "../img/truck/truck1.png");
@@ -21,12 +24,11 @@ public class Truck extends Base implements Runnable {
     @Override
     public void run() {
 
-        while (move) {
+        while (true) {
             this.image++;
             if (this.image > 4) this.image = 1;
             this.setSprite(new ImageIcon(getClass().getResource("../img/truck/truck" + image + ".png")));
             moveX();
-            //move(t, path);
             try {
                 Thread.sleep(166);
             } catch (InterruptedException e) {
@@ -36,23 +38,56 @@ public class Truck extends Base implements Runnable {
     }
 
     private void moveX() {
-        this.setX(getX() + 5);
-        if (this.getX() == 720) {
-            this.setX(720);
+        if (move) {
+            this.setX(getX() + 5);
+            if (this.getX() == caves.get(0).getCave().getX()) {
+                move = false;
+            }
         }
     }
 
-    private void moveOptim(Truck truck, LinkedList<Node> cave) {
-        if (path.get(0).getLeft().getCave().getValue() < path.get(0).getRight().getCave().getValue()) {
-            truck.setY(path.get(0).getRight().getCave().getY());
-            truck.setX(path.get(0).getRight().getCave().getX());
-        } else if (path.get(0).getLeft().getCave().getValue() > path.get(0).getRight().getCave().getValue()) {
-            truck.setY(path.get(0).getLeft().getCave().getY());
-            truck.setX(path.get(0).getLeft().getCave().getX());
-        } else {
-            truck.setY(path.get(0).getLeft().getCave().getY());
-            truck.setX(path.get(0).getLeft().getCave().getX());
+    private void moveOptimR(LinkedList<Cave> cave) {
+        if (caves.get(0).getLeft().getCave().getValue() < caves.get(0).getRight().getCave().getValue()) {
+            if (moveRightY) {
+                if (this.getY() == caves.get(0).getRight().getCave().getY()) {
+                    moveRightY = false;
+                } else if (this.getY() != caves.get(0).getRight().getCave().getY()) {
+                    this.setY(getY() + 5);
+                }
+            }
+            if (moveRightX) {
+                if (this.getX() == caves.get(0).getRight().getCave().getX()) {
+                    moveRightX = false;
+                } else if (this.getX() != caves.get(0).getRight().getCave().getX()) {
+                    this.setX(getX() + 5);
+                }
+            }
+        }
+    }
+
+
+    private void moveOptimL(LinkedList<Cave> cave) {
+
+        if (caves.get(0).getLeft().getCave().getValue() > caves.get(0).getRight().getCave().getValue()) {
+            if (moveleftY) {
+                if (this.getY() == caves.get(0).getLeft().getCave().getY()) {
+                    moveleftY = false;
+                } else if (this.getY() != caves.get(0).getLeft().getCave().getY()) {
+                    this.setY(getY() - 5);
+                }
+            }
+            if (moveleftX) {
+                if (this.getX() == caves.get(0).getLeft().getCave().getX()) {
+                    moveleftY = false;
+                } else if (this.getX() != caves.get(0).getLeft().getCave().getX()) {
+                    this.setX(getX() - 5);
+                }
+            }
         }
     }
 }
+
+
+    
+
 
