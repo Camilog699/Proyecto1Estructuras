@@ -15,9 +15,10 @@ public class Truck extends Base implements Runnable {
     boolean moveleftX = true;
     boolean moveleftY = true;
 
-    public Truck(int x, int y) {
+    public Truck(int x, int y, LinkedList<Node> caves) {
         super(x, y, 73, 43, "../img/truck/truck1.png");
         this.image = 1;
+        this.caves = caves;
         new Thread(this).start();
     }
 

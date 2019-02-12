@@ -1,6 +1,5 @@
 import Models.Cave;
 import Models.Tree;
-import Models.Truck;
 import Views.Board.Board;
 import Views.Board.BoardFrame;
 import org.json.simple.JSONArray;
@@ -10,7 +9,6 @@ import org.json.simple.parser.JSONParser;
 import javax.swing.*;
 import java.awt.*;
 import java.io.FileReader;
-import java.util.LinkedList;
 
 public class Project {
     public static void main(String[] args) {
@@ -22,7 +20,7 @@ public class Project {
         setUIFont(new javax.swing.plaf.FontUIResource("Raleway", Font.PLAIN, 12));
         UIManager.put("TabbedPane.contentOpaque", false);
         JFrame index = new BoardFrame("The Paro");
-        index.setContentPane(new Board(loadInitialTree(), loadInitialTrucks()).panel);
+        index.setContentPane(new Board(loadInitialTree()).panel);
         index.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         index.pack();
         index.setLocationRelativeTo(null);
@@ -60,11 +58,5 @@ public class Project {
             e.printStackTrace();
         }
         return tree;
-    }
-    
-    private static LinkedList<Truck> loadInitialTrucks() {
-        LinkedList<Truck> trucks = new LinkedList<>();
-        trucks.add(new Truck(40, 30));
-        return trucks;
     }
 }

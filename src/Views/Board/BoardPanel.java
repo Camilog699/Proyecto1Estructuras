@@ -47,6 +47,12 @@ public class BoardPanel extends javax.swing.JPanel {
 
     private void drawCove(Node n, Graphics2D g) {
         Cave cave = n.getCave();
+        if (cave.isSelected()) {
+            Color actualColor = g.getColor();
+            g.setColor(Color.RED);
+            g.fillOval(cave.getX() - 20, cave.getY() + cave.getHeight() - 20, 20, 20);
+            g.setColor(actualColor);
+        }
         g.drawImage(cave.getSprite().getImage(), cave.getX(), cave.getY(), cave.getWidth(), cave.getHeight(), this);
         createInfoLabels(cave, g);
         if (n.getLeft() != null || n.getRight() != null) {

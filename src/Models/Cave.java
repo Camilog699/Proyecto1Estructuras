@@ -8,6 +8,7 @@ public class Cave extends Base {
     private int[] unitPrices = {5, 10, 30, 50, 150};
     private String[] materials = {"Stone", "Wood", "Bronze", "Silver", "Gold"};
     private int value;
+    private boolean selected;
     private boolean blocked;
     
     public Cave(String material, int amount) {
@@ -62,5 +63,13 @@ public class Cave extends Base {
 
     public void setValue(int value) {
         this.value = value;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 }
