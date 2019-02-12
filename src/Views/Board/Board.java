@@ -19,6 +19,7 @@ public class Board {
     private JButton btnAddCave;
     private JButton btnSelectWay;
     private JButton btnReady;
+    private JButton btnDigBetterWay;
 
     public Board(Tree tree) {
         this.tree = tree;
@@ -48,6 +49,18 @@ public class Board {
                 }
             }
         });
+
+        btnDigBetterWay.addActionListener(e -> {
+            LinkedList<Node> optimList = new LinkedList<>();
+            optimPath(tree.getRoot(), optimList);
+            trucks.add(new Truck(40, 30, optimList));
+        });
+    }
+
+    private void optimPath(Node parent, LinkedList<Node> optimList) {
+        if (parent == null) return;
+        optimPath(parent.getRight(), optimList);
+        optimList.add(parent);
     }
 
     private boolean checkNodeClick(MouseEvent e, Node parent) {
