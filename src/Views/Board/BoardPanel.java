@@ -10,13 +10,13 @@ public class BoardPanel extends javax.swing.JPanel {
     Tree tree;
     LinkedList<Truck> trucks;
     Boolean paused;
-    
+
     public BoardPanel(Tree tree, LinkedList<Truck> trucks) {
         this.tree = tree;
         this.trucks = trucks;
         this.paused = false;
     }
-    
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -71,12 +71,12 @@ public class BoardPanel extends javax.swing.JPanel {
             VPath vPath = new VPath(cave.getX() - 12 + cave.getWidth() / 2, cave.getY() + cave.getHeight());
             g.fillRect(vPath.getX(), vPath.getY(), vPath.getWidth(), vPath.getHeight());
             if (n.getLeft() != null) {
-                HPath hPath = new HPath(vPath.getX() - vPath.getHeight(), vPath.getY() + vPath.getHeight() / 2);
+                HPath hPath = new HPath(n.getLeft().getCave().getX() + n.getLeft().getCave().getWidth(), vPath.getY() + vPath.getHeight() / 2, vPath.getX() - n.getLeft().getCave().getX());
                 g.fillRect(hPath.getX(), hPath.getY(), hPath.getWidth(), hPath.getHeight());
                 drawCove(n.getLeft(), g);
             }
             if (n.getRight() != null) {
-                HPath hPath = new HPath(vPath.getX() + vPath.getWidth(), vPath.getY() + vPath.getHeight() / 2);
+                HPath hPath = new HPath(vPath.getX(), vPath.getY() + vPath.getHeight() / 2, n.getRight().getCave().getX() - vPath.getX());
                 g.fillRect(hPath.getX(), hPath.getY(), hPath.getWidth(), hPath.getHeight());
                 drawCove(n.getRight(), g);
             }

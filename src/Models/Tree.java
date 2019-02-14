@@ -7,7 +7,7 @@ public class Tree {
 
     public void add(Cave cave) {
         if (this.root == null) {
-            cave.setX(720);
+            cave.setX(820);
             cave.setY(20);
             this.root = new Node(null, cave, null);
             maxProfit = this.root;
@@ -16,11 +16,12 @@ public class Tree {
             addNode(this.root, cave);
         }
         updatePositions(this.root);
+        Position(this.root, 1, null, 0);
     }
 
     public void updatePositions(Node parent) {
         if (parent == null) return;
-        int rootX = 720;
+        int rootX = 820;
         int rootY = 20;
         int distanceX = 150;
         int distanceY = 70;
@@ -128,7 +129,6 @@ public class Tree {
         if (padre == null) return false;
         if (eliminarHoja(padre.getLeft(), cave)) padre.setLeft(null);
         if (eliminarHoja(padre.getRight(), cave)) padre.setRight(null);
-
         return padre.getRight() == null && padre.getLeft() == null && padre.getCave() == cave;
     }
 
@@ -153,6 +153,30 @@ public class Tree {
             updatePositions(this.getRoot());
         }
         return ((padre.getRight() == null && padre.getLeft() != null) || (padre.getRight() != null && padre.getLeft() == null)) && padre.getCave() == cave;
+    }
+
+    public void Position(Node act, int i, Node ant, int j) {
+        if (act != null) {
+            switch (i) {
+                case 1:
+                    act.getCave().setX(720);
+                    act.getCave().setY(20);
+                    ant = act;
+                    break;
+                case 0:
+                    act.getCave().setX(ant.getCave().getX() - (330 - j));
+                    act.getCave().setY(ant.getCave().getY() + 100);
+                    ant = act;
+                    break;
+                default:
+                    act.getCave().setX(ant.getCave().getX() + (330 - j));
+                    act.getCave().setY(ant.getCave().getY() + 100);
+                    ant = act;
+                    break;
+            }
+            Position(ant.getLeft(), 0, ant, j + 90);
+            Position(ant.getRight(), 2, ant, j + 90);
+        }
     }
 
     public Node getRoot() {

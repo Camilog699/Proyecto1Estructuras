@@ -1,7 +1,7 @@
 package Models;
 
 public class HPath extends  Base{
-    public HPath(int x, int y) {
-        super(x, y, 50, 25);
+    public HPath(int x, int y, int width) {
+        super(x, y, width, 25);
     }
 }
