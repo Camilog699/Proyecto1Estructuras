@@ -65,6 +65,7 @@ public class Board {
 
         btnReadyToRemove.addActionListener(e -> {
             tree.eliminarHoja(tree.getRoot(), node.getCave());
+            loadReport();
             node.getCave().setSelectedToRemove(false);
             btnReadyToRemove.setVisible(false);
             btnRemoveCave.setVisible(true);
@@ -78,6 +79,7 @@ public class Board {
 
         btnReadyToRemove2.addActionListener(e -> {
             tree.eliminarHijo(tree.getRoot(), nodeD.getCave());
+            loadReport();
             nodeD.getCave().setSelectedToRemoveDaughter(false);
             btnReadyToRemove2.setVisible(false);
             btnRemoveDaughterCave.setVisible(true);
