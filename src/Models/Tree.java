@@ -40,7 +40,7 @@ public class Tree {
         updatePositions(parent.getRight());
     }
 
-    private Node checkLeftBalance(Node parent, Cave cave) {
+    public Node checkLeftBalance(Node parent, Cave cave) {
         int rightFe = (parent.getRight() == null) ? -1 : parent.getRight().getFe();
         if (parent.getLeft().getFe() - rightFe == 2) {
             if (cave.getValue() < parent.getLeft().getCave().getValue()) {
@@ -52,7 +52,7 @@ public class Tree {
         return parent;
     }
 
-    private Node checkRightBalance(Node parent, Cave cave) {
+    public Node checkRightBalance(Node parent, Cave cave) {
         int leftFe = (parent.getLeft() == null) ? -1 : parent.getLeft().getFe();
         if (parent.getRight().getFe() - leftFe == 2) {
             if (cave.getValue() > parent.getRight().getCave().getValue()) {
@@ -64,7 +64,7 @@ public class Tree {
         return parent;
     }
 
-    private Node addNode(Node parent, Cave cave) {
+    public Node addNode(Node parent, Cave cave) {
         if (parent == null) {
             parent = new Node(null, cave, null);
             if (parent.getCave().getAmount() > maxAmount.getCave().getAmount()) this.maxAmount = parent;
@@ -124,17 +124,83 @@ public class Tree {
         return aux;
     }
 
-    private boolean eliminarHoja(Node padre, Cave cave) {
+    public boolean eliminarHoja(Node padre, Cave cave) {
         if (padre == null) return false;
         if (eliminarHoja(padre.getLeft(), cave)) padre.setLeft(null);
         if (eliminarHoja(padre.getRight(), cave)) padre.setRight(null);
         return padre.getRight() == null && padre.getLeft() == null && padre.getCave() == cave;
     }
 
-    public boolean eliminarHijos(Node padre) {
+    public boolean eliminarHijo(Node padre, Cave cave) {
         if (padre == null) return false;
+        if (eliminarHijo(padre.getLeft(), cave)) {
+            if (padre.getLeft().getLeft() != null) {
+                padre.setLeft(padre.getLeft().getLeft());
+            } else if (padre.getLeft().getRight() != null) {
+                padre.setLeft(padre.getLeft().getRight());
+            }
+            updatePositions(this.getRoot());
+        }
+        if (eliminarHijo(padre.getRight(), cave)) {
+            if (padre.getRight().getRight() != null) {
+                padre.setRight(padre.getRight().getRight());
+                padre = padre.getRight().getRight();
+            } else if (padre.getRight().getLeft() != null) {
+                padre.setRight(padre.getRight().getLeft());
+                padre = padre.getRight().getLeft();
+            }
+            updatePositions(this.getRoot());
+        }
+        return ((padre.getRight() == null && padre.getLeft() != null) || (padre.getRight() != null && padre.getLeft() == null)) && padre.getCave() == cave;
+    }
+
+    public boolean eliminarHijos(Node padre, Cave cave) {
+        if (padre == null) return false;
+
+        if (eliminarHijos(padre.getLeft(), cave)) {
+            if (padre.getLeft() != null) {
+                if (padre.getRight() != null) {
+                    padre = padre.getLeft();
+                    padre.setLeft(null);
+                    padre.setRight(padre.getRight());
+                } else {
+                    padre = padre.getLeft();
+                    padre.setLeft(null);
+                }
+            }
+        }
         return false;
     }
+
+   /* public boolean eliminarHijo(Node padre, Cave cave) {
+        if (padre != null) {
+            if (padre.getLeft().getLeft() == null && padre.getLeft().getRight() == null) {
+                return false;
+            }
+            if ((padre.getLeft().getLeft() != null && padre.getLeft().getRight() == null)
+                    || (padre.getLeft().getLeft() == null && padre.getLeft().getRight() != null)) {
+                if (padre.getLeft().getLeft() != null) {
+                    padre.setLeft(padre.getLeft().getLeft());
+                    eliminarHijo(padre.getLeft(), cave);
+                } else if (padre.getLeft().getRight() != null) {
+                    padre.setLeft(padre.getLeft().getRight());
+                }
+            }
+            if (padre.getRight().getRight() == null && padre.getRight().getLeft() == null) {
+                return false;
+            } else if ((padre.getRight().getRight() != null && padre.getRight().getLeft() == null)
+                    || (padre.getRight().getRight() == null && padre.getRight().getLeft() != null)) {
+                if (padre.getRight().getRight() != null) {
+                    padre.setRight(padre.getRight().getRight());
+                    eliminarHijo(padre.getRight(), cave);
+                } else if (padre.getRight().getLeft() != null) {
+                    padre.setRight(padre.getRight().getLeft());
+                }
+            }
+        }
+        return false;
+    }*/
+
 
     public Node getRoot() {
         return root;

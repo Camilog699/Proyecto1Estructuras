@@ -9,6 +9,8 @@ public class Cave extends Base {
     private String[] materials = {"Stone", "Wood", "Bronze", "Silver", "Gold"};
     private int value;
     private boolean selected;
+    private boolean selectedToRemove;
+    private boolean selectedToRemoveDaughter;
     private boolean blocked;
     int initAmount;
 
@@ -51,7 +53,7 @@ public class Cave extends Base {
         this.amount -= cant;
         return cant;
     }
-
+  
     public String getMaterial() {
         return material;
     }
@@ -90,5 +92,21 @@ public class Cave extends Base {
 
     public void setSelected(boolean selected) {
         this.selected = selected;
+    }
+
+    public boolean isSelectedToRemove() {
+        return selectedToRemove;
+    }
+
+    public void setSelectedToRemove(boolean selectedToRemove) {
+        this.selectedToRemove = selectedToRemove;
+    }
+
+    public boolean isSelectedToRemoveDaughter() {
+        return selectedToRemoveDaughter;
+    }
+
+    public void setSelectedToRemoveDaughter(boolean selectedToRemoveDaughter) {
+        this.selectedToRemoveDaughter = selectedToRemoveDaughter;
     }
 }

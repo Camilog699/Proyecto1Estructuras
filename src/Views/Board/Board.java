@@ -6,6 +6,7 @@ import Models.Tree;
 import Models.Truck;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.LinkedList;
@@ -14,6 +15,10 @@ public class Board {
     Tree tree;
     LinkedList<Truck> trucks;
     LinkedList<Node> creatingList;
+    Node node;
+    Node nodeD;
+    boolean remove;
+    boolean removeD;
 
     public JPanel panel;
     private JButton btnAddCave;
@@ -23,7 +28,7 @@ public class Board {
     private JButton btnRemoveCave;
     private JButton btnReadyToRemove;
     private JButton btnReadyToRemove2;
-    private JButton btnRenoveDaughterCave;
+    private JButton btnRemoveDaughterCave;
     private JLabel lablCavesAmount;
     private JLabel lablGold;
     private JLabel lablSilver;
@@ -65,6 +70,33 @@ public class Board {
             btnSelectWay.setVisible(true);
             btnReady.setVisible(false);
         });
+
+        btnRemoveCave.addActionListener(e -> {
+            remove = true;
+            btnRemoveCave.setVisible(false);
+            btnReadyToRemove.setVisible(true);
+        });
+
+        btnReadyToRemove.addActionListener(e -> {
+            tree.eliminarHoja(tree.getRoot(), node.getCave());
+            node.getCave().setSelectedToRemove(false);
+            btnReadyToRemove.setVisible(false);
+            btnRemoveCave.setVisible(true);
+        });
+
+        btnRemoveDaughterCave.addActionListener(e -> {
+            removeD = true;
+            btnRemoveDaughterCave.setVisible(false);
+            btnReadyToRemove2.setVisible(true);
+        });
+
+        btnReadyToRemove2.addActionListener(e -> {
+            tree.eliminarHijo(tree.getRoot(), nodeD.getCave());
+            nodeD.getCave().setSelectedToRemoveDaughter(false);
+            btnReadyToRemove2.setVisible(false);
+            btnRemoveDaughterCave.setVisible(true);
+        });
+
         panel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
@@ -77,6 +109,22 @@ public class Board {
                         else creatingList.add(clickedNode);
                     }
                 }
+                if (remove) {
+                    Node clickedNode = checkTreeClick(e, tree.getRoot());
+                    if (clickedNode != null) {
+                        clickedNode.getCave().setSelectedToRemove(true);
+                        node = clickedNode;
+                        remove = false;
+                    }
+                }
+                if (removeD) {
+                    Node clickedNode = checkTreeClick(e, tree.getRoot());
+                    if (clickedNode != null) {
+                        clickedNode.getCave().setSelectedToRemoveDaughter(true);
+                        nodeD = clickedNode;
+                        removeD = false;
+                    }
+                }
             }
         });
 
@@ -87,6 +135,7 @@ public class Board {
             truck.setOptim(true);
             trucks.add(truck);
         });
+
     }
 
     private boolean pathToNode(Node parent, LinkedList<Node> list, Node node) {
@@ -114,8 +163,9 @@ public class Board {
     }
 
     private boolean checkNodeClick(MouseEvent e, Node parent) {
-        return parent.getCave().getX() <= e.getX() && parent.getCave().getX() + parent.getCave().getWidth() >= e.getX()
-                && parent.getCave().getY() <= e.getY() && parent.getCave().getY() + parent.getCave().getHeight() >= e.getY();
+        Rectangle caveRect = new Rectangle(parent.getCave().getX(), parent.getCave().getY(), parent.getCave().getWidth(), parent.getCave().getHeight());
+        Rectangle mouseRect = new Rectangle(e.getX(), e.getY(), 1, 1);
+        return caveRect.intersects(mouseRect);
     }
 
     private Node checkTreeClick(MouseEvent e, Node parent) {
