@@ -10,10 +10,12 @@ public class BoardPanel extends javax.swing.JPanel {
     Tree tree;
     LinkedList<Truck> trucks;
     Boolean paused;
-    
-    public BoardPanel(Tree tree, LinkedList<Truck> trucks) {
+    Supervisor supervisor;
+
+    public BoardPanel(Tree tree, LinkedList<Truck> trucks, Supervisor supervisor) {
         this.tree = tree;
         this.trucks = trucks;
+        this.supervisor = supervisor;
         this.paused = false;
     }
     
@@ -95,6 +97,7 @@ public class BoardPanel extends javax.swing.JPanel {
 
         drawTree(g2d);
         trucks.forEach(truck -> drawTruck(truck, g2d));
+        this.supervisor.draw(g);
         repaint();
     }
 }

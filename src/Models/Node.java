@@ -1,9 +1,12 @@
 package Models;
 
+import java.awt.*;
+
 public class Node {
     private Node left;
     private Cave cave;
     private Node right;
+    private boolean visited;
     private int fe;
 
     Node(Node left, Cave cave, Node right) {
@@ -11,6 +14,7 @@ public class Node {
         this.cave = cave;
         this.right = right;
         this.fe = 0;
+        this.visited = false;
     }
     
     
@@ -42,5 +46,16 @@ public class Node {
         this.fe = fe;
     }
 
+    public boolean isVisited() {
+        return visited;
+    }
+
+    public void setVisited(boolean visited) {
+        this.visited = visited;
+    }
+
+    public Rectangle getRect() {
+        return new Rectangle(this.getCave().getX(), this.getCave().getY(), this.getCave().getWidth(), this.getCave().getHeight());
+    }
 }
 

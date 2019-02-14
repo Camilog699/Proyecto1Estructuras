@@ -1,11 +1,9 @@
 package Views.Board;
 
-import Models.Cave;
-import Models.Node;
-import Models.Tree;
-import Models.Truck;
+import Models.*;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.LinkedList;
@@ -14,15 +12,20 @@ public class Board {
     Tree tree;
     LinkedList<Truck> trucks;
     LinkedList<Node> creatingList;
+    Supervisor supervisor;
 
     public JPanel panel;
     private JButton btnAddCave;
     private JButton btnSelectWay;
     private JButton btnReady;
+    private JButton btnSupervisar;
     private JButton btnDigBetterWay;
+    private JButton btnRemoveCave;
+    private JButton btnReadyToRemove;
 
-    public Board(Tree tree) {
+    public Board(Tree tree, Supervisor supervisor) {
         this.tree = tree;
+        this.supervisor = supervisor;
         btnSelectWay.addActionListener(e -> {
             creatingList = new LinkedList<>();
             btnSelectWay.setVisible(false);
@@ -49,23 +52,13 @@ public class Board {
                 }
             }
         });
-
-        btnDigBetterWay.addActionListener(e -> {
-            LinkedList<Node> optimList = new LinkedList<>();
-            optimPath(tree.getRoot(), optimList);
-            trucks.add(new Truck(40, 30, optimList));
-        });
-    }
-
-    private void optimPath(Node parent, LinkedList<Node> optimList) {
-        if (parent == null) return;
-        optimPath(parent.getRight(), optimList);
-        optimList.add(parent);
+        btnSupervisar.addActionListener(e -> this.supervisor.supervisar(this.tree.getRoot()));
     }
 
     private boolean checkNodeClick(MouseEvent e, Node parent) {
-        return parent.getCave().getX() <= e.getX() && parent.getCave().getX() + parent.getCave().getWidth() >= e.getX()
-                && parent.getCave().getY() <= e.getY() && parent.getCave().getY() + parent.getCave().getHeight() >= e.getY();
+        Rectangle caveRect = new Rectangle(parent.getCave().getX(), parent.getCave().getY(), parent.getCave().getWidth(), parent.getCave().getHeight());
+        Rectangle mouseRect = new Rectangle(e.getX(), e.getY(), 1, 1);
+        return caveRect.intersects(mouseRect);
     }
 
     private Node checkTreeClick(MouseEvent e, Node parent) {
@@ -80,7 +73,7 @@ public class Board {
 
     private void createUIComponents() {
         this.trucks = new LinkedList<>();
-        this.panel = new BoardPanel(tree, trucks);
+        this.panel = new BoardPanel(tree, trucks, supervisor);
     }
 
 }
