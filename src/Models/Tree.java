@@ -234,8 +234,8 @@ public class Tree {
     public int getMaterialAmount(Node parent, String material) {
         if (parent == null) return 0;
         if (parent.getCave().getMaterial().equals(material)) {
-            return parent.getCave().getAmount();
+            return parent.getCave().getAmount() + getMaterialAmount(parent.getLeft(), material) + getMaterialAmount(parent.getRight(), material);
         }
-        return getMaterialAmount(parent.getLeft(), material) + getMaterialAmount(parent.getRight(), material) + parent.getCave().getAmount();
+        return getMaterialAmount(parent.getLeft(), material) + getMaterialAmount(parent.getRight(), material);
     }
 }

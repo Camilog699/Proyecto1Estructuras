@@ -1,5 +1,7 @@
 package Models;
 
+import java.awt.*;
+
 public class Node {
     private Node left;
     private Cave cave;
@@ -42,5 +44,8 @@ public class Node {
         this.fe = fe;
     }
 
+    public Rectangle getRect() {
+        return new Rectangle(this.getCave().getX(), this.getCave().getY(), this.getCave().getWidth(), this.getCave().getHeight());
+    }
 }
 
