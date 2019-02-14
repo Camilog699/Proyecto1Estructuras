@@ -47,11 +47,25 @@ public class Board {
         });
         btnAddCave.addActionListener(e -> {
             tree.add(new Cave());
+            trucks.forEach(truck -> {
+                if (truck.isOptim()) {
+                    LinkedList<Node> optimList = new LinkedList<>();
+                    optimPath(tree.getRoot(), optimList);
+                    truck.setNodes(optimList);
+                }
+            });
             loadReport();
         });
         btnReady.addActionListener(e -> {
-            trucks.add(new Truck(40, 30, creatingList));
-            creatingList.forEach(nodo -> nodo.getCave().setSelected(false));
+            LinkedList<Node> list = new LinkedList<>();
+            creatingList.forEach(nodo -> {
+                nodo.getCave().setSelected(false);
+                pathToNode(this.tree.getRoot(), list, nodo);
+            });
+            if (tree.getRoot() != list.get(0)) {
+                list.addFirst(tree.getRoot());
+            }
+            trucks.add(new Truck(40, 30, list));
             creatingList = null;
             btnSelectWay.setVisible(true);
             btnReady.setVisible(false);
@@ -92,8 +106,9 @@ public class Board {
                 if (creatingList != null) {
                     Node clickedNode = checkTreeClick(e, tree.getRoot());
                     if (clickedNode != null) {
-                        clickedNode.getCave().setSelected(true);
-                        creatingList.add(clickedNode);
+                        clickedNode.getCave().setSelected(!clickedNode.getCave().isSelected());
+                        if (creatingList.indexOf(clickedNode) > -1) creatingList.remove(clickedNode);
+                        else creatingList.add(clickedNode);
                     }
                 }
                 if (remove) {
@@ -118,15 +133,35 @@ public class Board {
         btnDigBetterWay.addActionListener(e -> {
             LinkedList<Node> optimList = new LinkedList<>();
             optimPath(tree.getRoot(), optimList);
-            trucks.add(new Truck(40, 30, optimList));
+            Truck truck = new Truck(40, 20, optimList);
+            truck.setOptim(true);
+            trucks.add(truck);
         });
 
     }
 
+    private boolean pathToNode(Node parent, LinkedList<Node> list, Node node) {
+        if (parent == null) return false;
+        if (parent == node) {
+            return true;
+        }
+        if (pathToNode(parent.getLeft(), list, node)) {
+            list.add(parent);
+            list.add(parent.getLeft());
+            return true;
+        }
+        if (pathToNode(parent.getRight(), list, node)) {
+            list.add(parent);
+            list.add(parent.getRight());
+            return true;
+        }
+        return false;
+    }
+
     private void optimPath(Node parent, LinkedList<Node> optimList) {
         if (parent == null) return;
-        optimPath(parent.getRight(), optimList);
         optimList.add(parent);
+        optimPath(parent.getRight(), optimList);
     }
 
     private boolean checkNodeClick(MouseEvent e, Node parent) {

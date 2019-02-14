@@ -12,11 +12,13 @@ public class Cave extends Base {
     private boolean selectedToRemove;
     private boolean selectedToRemoveDaughter;
     private boolean blocked;
+    int initAmount;
 
     public Cave(String material, int amount) {
         super(0, 0, 60, 60, "../img/cave.png");
         this.material = material;
         this.amount = amount;
+        this.initAmount = amount;
         calcValue();
     }
 
@@ -35,6 +37,23 @@ public class Cave extends Base {
         }
     }
 
+    public int collectMaterial(Truck truck) {
+        if (this.amount < this.initAmount * .6) {
+            int cant = (int) (this.amount * 0.1);
+            this.amount -= cant;
+            return cant;
+        }
+        if (this.amount <= truck.getCapacity() - truck.getHolding()) {
+            int cant = this.amount;
+            this.amount = 0;
+            return cant;
+        }
+
+        int cant = this.amount - truck.getCapacity() + truck.getHolding();
+        this.amount -= cant;
+        return cant;
+    }
+  
     public String getMaterial() {
         return material;
     }
