@@ -55,4 +55,13 @@ public class Base {
     void setSprite(ImageIcon sprite) {
         this.sprite = sprite;
     }
+
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
 }

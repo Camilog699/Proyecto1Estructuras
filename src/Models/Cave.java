@@ -9,10 +9,10 @@ public class Cave extends Base {
     private String[] materials = {"Stone", "Wood", "Bronze", "Silver", "Gold"};
     private int value;
     private boolean selected;
-    private boolean selectedToRemove;
-    private boolean selectedToRemoveDaughter;
-    private boolean blocked;
     int initAmount;
+    private boolean selectedToRemove;
+    private boolean blocked;
+    private boolean selectedToRemoveDaughter;
 
     public Cave(String material, int amount) {
         super(0, 0, 60, 60, "../img/cave.png");

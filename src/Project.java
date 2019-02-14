@@ -1,4 +1,5 @@
 import Models.Cave;
+import Models.Supervisor;
 import Models.Tree;
 import Views.Board.Board;
 import Views.Board.BoardFrame;
@@ -20,7 +21,7 @@ public class Project {
         setUIFont(new javax.swing.plaf.FontUIResource("Raleway", Font.PLAIN, 12));
         UIManager.put("TabbedPane.contentOpaque", false);
         JFrame index = new BoardFrame("The Paro");
-        index.setContentPane(new Board(loadInitialTree()).panel);
+        index.setContentPane(new Board(loadInitialTree(), new Supervisor()).panel);
         index.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         index.pack();
         index.setLocationRelativeTo(null);

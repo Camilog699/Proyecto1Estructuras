@@ -1,9 +1,6 @@
 package Views.Board;
 
-import Models.Cave;
-import Models.Node;
-import Models.Tree;
-import Models.Truck;
+import Models.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +12,7 @@ public class Board {
     Tree tree;
     LinkedList<Truck> trucks;
     LinkedList<Node> creatingList;
+    Supervisor supervisor;
     Node node;
     Node nodeD;
     boolean remove;
@@ -24,6 +22,7 @@ public class Board {
     private JButton btnAddCave;
     private JButton btnSelectWay;
     private JButton btnReady;
+    private JButton btnSupervisar;
     private JButton btnDigBetterWay;
     private JButton btnRemoveCave;
     private JButton btnReadyToRemove;
@@ -36,8 +35,9 @@ public class Board {
     private JLabel lablWood;
     private JLabel lablStone;
 
-    public Board(Tree tree) {
+    public Board(Tree tree, Supervisor supervisor) {
         this.tree = tree;
+        this.supervisor = supervisor;
         loadReport();
 
         btnSelectWay.addActionListener(e -> {
@@ -127,6 +127,7 @@ public class Board {
                 }
             }
         });
+        btnSupervisar.addActionListener(e -> this.supervisor.supervisar(this.tree.getRoot()));
 
         btnDigBetterWay.addActionListener(e -> {
             LinkedList<Node> optimList = new LinkedList<>();
@@ -189,7 +190,7 @@ public class Board {
 
     private void createUIComponents() {
         this.trucks = new LinkedList<>();
-        this.panel = new BoardPanel(tree, trucks);
+        this.panel = new BoardPanel(tree, trucks, supervisor);
     }
 
 }
