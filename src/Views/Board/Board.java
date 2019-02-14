@@ -27,17 +27,28 @@ public class Board {
     private JButton btnDigBetterWay;
     private JButton btnRemoveCave;
     private JButton btnReadyToRemove;
-    private JButton btnRemoveDaughterCave;
     private JButton btnReadyToRemove2;
+    private JButton btnRemoveDaughterCave;
+    private JLabel lablCavesAmount;
+    private JLabel lablGold;
+    private JLabel lablSilver;
+    private JLabel lablBronze;
+    private JLabel lablWood;
+    private JLabel lablStone;
 
     public Board(Tree tree) {
         this.tree = tree;
+        loadReport();
+
         btnSelectWay.addActionListener(e -> {
             creatingList = new LinkedList<>();
             btnSelectWay.setVisible(false);
             btnReady.setVisible(true);
         });
-        btnAddCave.addActionListener(e -> tree.add(new Cave()));
+        btnAddCave.addActionListener(e -> {
+            tree.add(new Cave());
+            loadReport();
+        });
         btnReady.addActionListener(e -> {
             trucks.add(new Truck(40, 30, creatingList));
             creatingList.forEach(nodo -> nodo.getCave().setSelected(false));
@@ -130,6 +141,15 @@ public class Board {
         if (left != null) return left;
         if (right != null) return right;
         return null;
+    }
+
+    private void loadReport() {
+        lablCavesAmount.setText("Caves amount: " + tree.getCavesAmount(tree.getRoot()));
+        lablGold.setText("Gold amount: " + tree.getMaterialAmount(tree.getRoot(), "Gold"));
+        lablSilver.setText("Silver amount: " + tree.getMaterialAmount(tree.getRoot(), "Silver"));
+        lablBronze.setText("Bronze amount: " + tree.getMaterialAmount(tree.getRoot(), "Bronze"));
+        lablWood.setText("Wood amount: " + tree.getMaterialAmount(tree.getRoot(), "Wood"));
+        lablStone.setText("Stone amount: " + tree.getMaterialAmount(tree.getRoot(), "Stone"));
     }
 
     private void createUIComponents() {
