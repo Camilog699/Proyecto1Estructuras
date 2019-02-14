@@ -55,6 +55,18 @@ public class BoardPanel extends javax.swing.JPanel {
             g.fillOval(cave.getX() - 20, cave.getY() + cave.getHeight() - 20, 20, 20);
             g.setColor(actualColor);
         }
+        if (cave.isSelectedToRemove()) {
+            Color actualColor = g.getColor();
+            g.setColor(Color.BLACK);
+            g.fillOval(cave.getX() - 20, cave.getY() + cave.getHeight() - 20, 20, 20);
+            g.setColor(actualColor);
+        }
+        if (cave.isSelectedToRemoveDaughter()) {
+            Color actualColor = g.getColor();
+            g.setColor(Color.BLUE);
+            g.fillOval(cave.getX() - 20, cave.getY() + cave.getHeight() - 20, 20, 20);
+            g.setColor(actualColor);
+        }
         g.drawImage(cave.getSprite().getImage(), cave.getX(), cave.getY(), cave.getWidth(), cave.getHeight(), this);
         createInfoLabels(cave, g);
         if (n.getLeft() != null || n.getRight() != null) {

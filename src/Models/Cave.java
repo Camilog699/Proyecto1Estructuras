@@ -9,12 +9,16 @@ public class Cave extends Base {
     private String[] materials = {"Stone", "Wood", "Bronze", "Silver", "Gold"};
     private int value;
     private boolean selected;
+    int initAmount;
+    private boolean selectedToRemove;
     private boolean blocked;
-    
+    private boolean selectedToRemoveDaughter;
+
     public Cave(String material, int amount) {
         super(0, 0, 60, 60, "../img/cave.png");
         this.material = material;
         this.amount = amount;
+        this.initAmount = amount;
         calcValue();
     }
 
@@ -32,15 +36,32 @@ public class Cave extends Base {
             }
         }
     }
-    
+
+    public int collectMaterial(Truck truck) {
+        if (this.amount < this.initAmount * .6) {
+            int cant = (int) (this.amount * 0.1);
+            this.amount -= cant;
+            return cant;
+        }
+        if (this.amount <= truck.getCapacity() - truck.getHolding()) {
+            int cant = this.amount;
+            this.amount = 0;
+            return cant;
+        }
+
+        int cant = this.amount - truck.getCapacity() + truck.getHolding();
+        this.amount -= cant;
+        return cant;
+    }
+  
     public String getMaterial() {
         return material;
     }
-    
+
     public void setMaterial(String material) {
         this.material = material;
     }
-    
+
     public int getAmount() {
         return amount;
     }
@@ -48,11 +69,11 @@ public class Cave extends Base {
     public void setAmount(int amount) {
         this.amount = amount;
     }
-    
+
     public boolean isBlocked() {
         return blocked;
     }
-    
+
     public void setBlocked(boolean blocked) {
         this.blocked = blocked;
     }
@@ -71,5 +92,21 @@ public class Cave extends Base {
 
     public void setSelected(boolean selected) {
         this.selected = selected;
+    }
+
+    public boolean isSelectedToRemove() {
+        return selectedToRemove;
+    }
+
+    public void setSelectedToRemove(boolean selectedToRemove) {
+        this.selectedToRemove = selectedToRemove;
+    }
+
+    public boolean isSelectedToRemoveDaughter() {
+        return selectedToRemoveDaughter;
+    }
+
+    public void setSelectedToRemoveDaughter(boolean selectedToRemoveDaughter) {
+        this.selectedToRemoveDaughter = selectedToRemoveDaughter;
     }
 }
